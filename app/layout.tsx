@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="prose grid grid-cols-12 gap-4">
         {children}
       </body>
     </html>
