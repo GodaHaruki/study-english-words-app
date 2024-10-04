@@ -9,7 +9,7 @@ export default function Signin(){
     }
 
     return (
-        <div className="col-span-12 flex w-screen h-screen justify-center items-center">
+        <div className="flex w-screen h-screen justify-center items-center">
             <div className="w-fit h-fit">
                 <form className="w-fit h-fit p-5 bg-secondary-content rounded-xl">
                     <p className="text-center text-bold">Signin</p>
