@@ -1,0 +1,18 @@
+services:
+  app:
+    #if you want to set container name,enter the container name here
+    #container_name: YOUR_CONTAINER_NAME
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    restart: always
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - WATCHPACK_POLLING=true
+    ports:
+      - "3000:3000"
+    #start development server
+    command: sh -c "npm run dev"
