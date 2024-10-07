@@ -5,6 +5,7 @@ on:
 
 jobs:
   lint:
+    name: lint
     runs-on: ubuntu-latest
 
     steps:
@@ -15,6 +16,5 @@ jobs:
 
     - name: npm install
     - run: npm i
-
     - name: npm run lint
     - run: npm run lint
