@@ -8,7 +8,7 @@ export function Header() {
       <div className="navbar-center">
         <p className="text-cente text-3xl">App Name</p>
       </div>
-      <div className="navbar-end form-control">
+      <div className="navbar-end form-control invisible md:block">
         <label className="input input-bordered flex items-center gap-2 ml-auto">
           <input type="text" className="grow" placeholder="Search" />
           <svg
