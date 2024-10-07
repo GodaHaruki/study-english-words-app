@@ -10,10 +10,11 @@ enum SearchType {
 }
 
 export default function Word() {
-  const [searchType, setSearchType] = useState<SearchType>(SearchType.Word)
+  // const [searchType, setSearchType] = useState<SearchType>(SearchType.Word)
+  const setSearchType = useState<SearchType>(SearchType.Word)[1]
   const [query, setQuery] = useState<string>("");
 
-  const [serachedResult, setSearchedResult] = useState<Word>();
+  // const [serachedResult, setSearchedResult] = useState<Word>();
 
   return (
     <Grid>
