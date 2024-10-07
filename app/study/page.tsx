@@ -21,7 +21,7 @@ function Radio(props:
     }) {
     return (
         <label className="col-span-6 md:col-span-4 lg:col-span-3">
-            <input type="radio" {...props} children={undefined} className="hidden peer">
+            <input type="radio" {...{...props, children: undefined}} className="hidden peer">
             </input>
             <span className={`w-full h-full py-10 btn peer-checked:btn-primary ${props.className}`}>{props.children}</span>
         </label>

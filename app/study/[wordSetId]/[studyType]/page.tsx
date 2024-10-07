@@ -1,7 +1,7 @@
 "use client";
 
 import { Grid } from "@/app/grid"
-import { useParams } from "next/navigation"
+// import { useParams } from "next/navigation"
 import { useEffect, useState } from "react";
 
 export type Word = {
@@ -11,28 +11,28 @@ export type Word = {
 
 type StudyComponent = ({ word }: { word: Word }) => React.ReactNode
 
-const E2J: StudyComponent = ({ word }) => {
-  const [checked, setChecked] = useState<boolean>(false);
-  useEffect(() => setChecked(false), [word]);
+// const E2J: StudyComponent = ({ word }) => {
+//   const [checked, setChecked] = useState<boolean>(false);
+//   useEffect(() => setChecked(false), [word]);
 
-  return (
-    <>
-      <div className="col-span-12 mockup-window border-base-300 border">
-        <div className="bg-base-200 flex justify-center px-4 py-16">
-          <input type="radio" name="word" id="word" className="peer/word hidden" onChange={() => setChecked(!checked)} checked={checked}></input>
-          <label htmlFor="word" className="w-full h-full peer-checked/word:hidden block text-center">
-            <p className="text-8xl font-bold">{word.word}</p>
-          </label>
+//   return (
+//     <>
+//       <div className="col-span-12 mockup-window border-base-300 border">
+//         <div className="bg-base-200 flex justify-center px-4 py-16">
+//           <input type="radio" name="word" id="word" className="peer/word hidden" onChange={() => setChecked(!checked)} checked={checked}></input>
+//           <label htmlFor="word" className="w-full h-full peer-checked/word:hidden block text-center">
+//             <p className="text-8xl font-bold">{word.word}</p>
+//           </label>
 
-          <input type="radio" name="word" id="mean" className="peer/mean hidden" onChange={() => setChecked(!checked)} checked={!checked}></input>
-          <label htmlFor="mean" className="w-full h-full peer-checked/mean:hidden block text-center">
-            <p className="text-8xl font-bold">{word.mean}</p>
-          </label>
-        </div>
-      </div>
-    </>
-  )
-}
+//           <input type="radio" name="word" id="mean" className="peer/mean hidden" onChange={() => setChecked(!checked)} checked={!checked}></input>
+//           <label htmlFor="mean" className="w-full h-full peer-checked/mean:hidden block text-center">
+//             <p className="text-8xl font-bold">{word.mean}</p>
+//           </label>
+//         </div>
+//       </div>
+//     </>
+//   )
+// }
 
 const J2E: StudyComponent = ({ word }) => {
   const [checked, setChecked] = useState<boolean>(false);
@@ -58,7 +58,7 @@ const J2E: StudyComponent = ({ word }) => {
 }
 
 export default function Study() {
-  const { wordSetidParam, studyTypeParam } = useParams()
+  // const { wordSetIdParam, studyTypeParam } = useParams()
   const words: Word[] = [{ mean: "反応する", word: "react" }, { mean: "次に", word: "next" }]
   const [position, setPosition] = useState<number>(0);
 
