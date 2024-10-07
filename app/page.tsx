@@ -3,7 +3,7 @@ import { Grid } from "./grid";
 
 export function Header() {
   return (
-    <>
+      <div className="col-span-12 bg-primary-content grid grid-cols-12">
       <div className="col-start-5 col-span-4">
         <p className="text-center text-3xl">App Name</p>
       </div>
@@ -22,7 +22,7 @@ export function Header() {
           </svg>
         </label>
       </div>
-    </>
+      </div>
   )
 }
 
