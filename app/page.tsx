@@ -9,7 +9,7 @@ export function Header() {
     Mean,
     Word,
   }
-  const [ searchType, setSearchType ] = useState<SearchType>(SearchType.Word)
+  const setSearchType = useState<SearchType>(SearchType.Word)[1]
 
   return (
     <div className="col-span-12 bg-primary-content grid grid-cols-12">
