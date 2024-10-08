@@ -1,13 +1,39 @@
+"use client";
+
 import Link from "next/link";
 import { Grid } from "./grid";
+import { useState } from "react";
+
 
 export function Header() {
+  enum SearchType {
+    Mean,
+    Word,
+  }
+  const [ searchType, setSearchType ] = useState<SearchType>(SearchType.Word)
+  
   return (
-      <div className="col-span-12 bg-primary-content grid grid-cols-12">
-      <div className="col-start-5 col-span-4">
+    <div className="col-span-12 bg-primary-content grid grid-cols-12">
+      <div className="lg:col-start-5 lg:col-span-4 md:col-span-6 col-start-1 col-span-4">
         <p className="text-center text-3xl">App Name</p>
       </div>
-      <div className="col-span-4 my-auto hidden md:block">
+      
+      <select className="col-span-3 md:col-span-2 lg:col-span-1 select select-bordered w-full my-auto"
+        onChange={(evt) => {
+          switch (evt.target.value) {
+            case "mean":
+              setSearchType(SearchType.Mean);
+              break;
+            case "word":
+              setSearchType(SearchType.Word);
+              break;
+          }
+        }}>
+        <option value="word">word</option>
+        <option value="mean">mean</option>
+      </select>
+
+      <div className="col-span-5 md:col-span-4 lg:col-span-3 md:col-start-9 lg:col-start-10 my-auto">
         <label className="input input-bordered flex items-center gap-2 ml-auto">
           <input type="text" className="grow" placeholder="Search" />
           <svg
@@ -22,7 +48,7 @@ export function Header() {
           </svg>
         </label>
       </div>
-      </div>
+    </div>
   )
 }
 
