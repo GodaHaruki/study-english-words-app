@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Grid } from "./grid";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <div className="col-span-10 col-start-2 divider"/>
       </div>
       <h2 className="mb-0 mt-5 text-3xl col-span-12 text-center bg-gradient-to-r from-primary to-primary-content bg-clip-text text-transparent">How to use</h2>
+      <Footer />
     </Grid>
   );
 }
