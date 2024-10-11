@@ -7,7 +7,7 @@ export default function Header() {
     Mean,
     Word,
   }
-  const setSearchType = useState<SearchType>(SearchType.Word)[1]
+  const [searchType, setSearchType] = useState<SearchType>(SearchType.Word);
 
   return (
     <div className="col-span-12 bg-primary-content grid grid-cols-12">
@@ -25,7 +25,9 @@ export default function Header() {
               setSearchType(SearchType.Word);
               break;
           }
-        }}>
+        }}
+        value={searchType == SearchType.Mean ? "mean" : "word"}
+        >
         <option value="word">word</option>
         <option value="mean">mean</option>
       </select>
