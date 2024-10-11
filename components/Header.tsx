@@ -35,7 +35,7 @@ export default function Header() {
 
       <div className="col-span-5 md:col-span-4 lg:col-span-3 md:col-start-9 lg:col-start-10 my-auto">
         <label className="input input-bordered flex items-center gap-2 ml-auto">
-          <input type="text" className="grow" placeholder="Search" />
+          <input type="text" className="grow w-full" placeholder="Search" />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
