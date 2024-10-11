@@ -1,6 +1,7 @@
 "use client";
 
 import { Grid } from "@/app/grid";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Header() {
@@ -13,7 +14,9 @@ export default function Header() {
   return (
     <Grid className="col-span-12 bg-primary-content">
       <div className="col-span-12 sm:col-start-1 sm:col-span-4">
-        <p className="text-center text-3xl">App Name</p>
+        <p className="text-center text-3xl">
+        <Link href="./" className="no-underline text-inherit">App Name</Link>
+        </p>
       </div>
       
       <div className="col-span-12 mb-4 mx-auto sm:col-span-8 sm:ml-auto sm:mr-4 sm:mx-0 sm:my-auto">
