@@ -1,5 +1,6 @@
 "use client";
 
+import { Grid } from "@/app/grid";
 import { useState } from "react";
 
 export default function Header() {
@@ -7,15 +8,15 @@ export default function Header() {
     Mean,
     Word,
   }
-  const setSearchType = useState<SearchType>(SearchType.Word)[1]
+  const [searchType, setSearchType] = useState<SearchType>(SearchType.Word);
 
   return (
-    <div className="col-span-12 bg-primary-content grid grid-cols-12">
+    <Grid className="col-span-12 bg-primary-content">
       <div className="lg:col-start-5 lg:col-span-4 md:col-span-6 col-start-1 col-span-4">
         <p className="text-center text-3xl">App Name</p>
       </div>
       
-      <select className="col-span-3 md:col-span-2 lg:col-span-1 select select-bordered w-full my-auto"
+      <select className="col-span-3 md:col-span-2 lg:col-span-1 relative left-4 ml-[-1rem] select select-bordered my-auto"
         onChange={(evt) => {
           switch (evt.target.value) {
             case "mean":
@@ -25,7 +26,9 @@ export default function Header() {
               setSearchType(SearchType.Word);
               break;
           }
-        }}>
+        }}
+        value={searchType == SearchType.Mean ? "mean" : "word"}
+        >
         <option value="word">word</option>
         <option value="mean">mean</option>
       </select>
@@ -45,6 +48,6 @@ export default function Header() {
           </svg>
         </label>
       </div>
-    </div>
+    </Grid>
   )
 }
