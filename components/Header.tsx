@@ -12,7 +12,7 @@ export default function Header() {
 
   return (
     <Grid className="col-span-12 bg-primary-content">
-      <div className="lg:col-start-5 lg:col-span-4 md:col-span-6 col-start-1 col-s  pan-4">
+      <div className="lg:col-start-5 lg:col-span-4 md:col-span-6 col-start-1 col-span-4">
         <p className="text-center text-3xl">App Name</p>
       </div>
       
