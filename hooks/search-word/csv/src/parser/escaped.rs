@@ -1,6 +1,6 @@
 use std::str::Chars;
 
-use crate::{csv::SPLIT_CHAR, csv_value::CSVValue};
+use crate::csv_value::CSVValue;
 
 use super::ParseResult;
 
