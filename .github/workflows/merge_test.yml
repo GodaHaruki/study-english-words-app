@@ -18,3 +18,18 @@ jobs:
       run: npm i
     - name: npm run lint
       run: npm run lint
+  
+  format:
+    name: format
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4.0.4
+
+    - name: npm install
+      run: npm i
+    - name: npm run format
+      run: npm run format
