@@ -9,8 +9,10 @@ pub fn non_escaped(s: &str) -> ParseResult<CSVValue> {
 }
 
 fn non_escaped_impl<'a>(s: &'a str, mut chars: Chars<'a>, index: usize) -> ParseResult<'a, CSVValue> {
+  let str = chars.as_str();
+
   if chars.next().unwrap() == SPLIT_CHAR {
-    return (CSVValue::new(s.chars().take(index).collect::<String>().as_str()), chars.as_str());
+    return (CSVValue::new(s.chars().take(index).collect::<String>().as_str()), str);
   }
 
   non_escaped_impl(s, chars, index + 1)
@@ -23,12 +25,12 @@ mod tests_non_escaped {
   #[test]
   fn test_non_multibyte_text(){
     let str = "abc123,cdf456";
-    assert_eq!(non_escaped(str), (CSVValue::String("abc123".to_string()), "cdf456"));
+    assert_eq!(non_escaped(str), (CSVValue::String("abc123".to_string()), ",cdf456"));
   }
 
   #[test]
   fn test_multibyte_text(){
     let str = "a🙃😉bc😀,😉🙃";
-    assert_eq!(non_escaped(str), (CSVValue::String("a🙃😉bc😀".to_string()), "😉🙃"));
+    assert_eq!(non_escaped(str), (CSVValue::String("a🙃😉bc😀".to_string()), ",😉🙃"));
   }
 }

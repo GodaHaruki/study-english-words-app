@@ -9,19 +9,19 @@ pub fn escaped(s: &str) -> ParseResult<CSVValue> {
 }
 
 fn escaped_impl<'a>(mut chars: Chars<'a>, s: String) -> ParseResult<'a, CSVValue> {
-  let next = chars.next().unwrap();
-  if next == '"' {
-    let next = chars.next().unwrap();
-    if next == SPLIT_CHAR {
-      return (CSVValue::new(s.as_str()), chars.as_str());
-    } else if next == '"' {
+  let next = chars.next();
+  
+  if next == Some('"') {
+    let str = chars.as_str();
+    let next = chars.next();
+    if next == Some('"') {
       return escaped_impl(chars, s + "\"")
     } else {
-      panic!("Syntax error: wrong csv")
+      return (CSVValue::new(s.as_str()), str);
     }
   }
 
-  escaped_impl(chars, s + next.to_string().as_str())
+  escaped_impl(chars, s + next.expect("wrong csv").to_string().as_str())
 }
 
 #[cfg(test)]
@@ -31,7 +31,7 @@ mod tests_escaped {
   #[test]
   fn test_non_multibyte_text(){
     let str = "abc123\"\"456\",\"cdf456\"";
-    assert_eq!(escaped(str), (CSVValue::String( "abc123\"456".to_string()), "\"cdf456\""));
+    assert_eq!(escaped(str), (CSVValue::String( "abc123\"456".to_string()), ",\"cdf456\""));
   }
 
   #[test]
@@ -39,6 +39,6 @@ mod tests_escaped {
     let str = "a🙃😉bc😀
     \",😉🙃";
     assert_eq!(escaped(str), (CSVValue::String("a🙃😉bc😀
-    ".to_string()), "😉🙃"));
+    ".to_string()), ",😉🙃"));
   }
 }

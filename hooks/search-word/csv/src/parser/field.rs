@@ -21,7 +21,7 @@ mod test_field {
     let str0 = "3.14,sample1";
     let str1 = "\"sample0\",sample1";
 
-    assert_eq!(field(str0), (CSVValue::Float(3.14), "sample1"));
-    assert_eq!(field(str1), (CSVValue::String("sample0".to_string()), "sample1"));
+    assert_eq!(field(str0), (CSVValue::Float(3.14), ",sample1"));
+    assert_eq!(field(str1), (CSVValue::String("sample0".to_string()), ",sample1"));
   }
 }
