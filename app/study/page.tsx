@@ -1,82 +1,65 @@
-'use client';
-
-import { ChangeEventHandler, ReactNode, useState } from 'react';
 import { grid } from '../grid';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import Link from 'next/link';
 
-export enum StudyType {
-  E2J, // english to japanese
-  J2E,
-}
-
-function Radio(props: {
-  name: string;
-  value: string | number;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  checked: boolean;
-  children: ReactNode;
-  className?: string;
-  key?: string | number;
-  required?: boolean;
+export function CustomCard(props: {
+  className: string;
+  link: string;
+  title: string;
+  desc: string;
+  titleClassName?: string;
+  descClassName?: string;
 }) {
   return (
-    <label className='col-span-6 md:col-span-4 lg:col-span-3'>
-      <input
-        type='radio'
-        {...{ ...props, children: undefined }}
-        className='peer hidden'
-      ></input>
-      <span
-        className={`btn size-full py-10 peer-checked:btn-primary ${props.className}`}
-      >
-        {props.children}
-      </span>
-    </label>
+    <Link
+      href={props.link}
+      className={
+        props.className +
+        ' card card-normal col-span-10 col-start-2 no-underline'
+      }
+    >
+      <div className='card-body col-span-10'>
+        <h2 className={props.titleClassName + ' card-title text-3xl'}>
+          {props.title}
+        </h2>
+        <p className={props.descClassName + ' card-text'}>{props.desc}</p>
+      </div>
+    </Link>
   );
 }
 
-const ranges: { desc: ReactNode; value: string | number }[] = [
-  { desc: '小学生', value: 0 },
-  { desc: '中学生', value: 1 },
-];
-
 export default function Study() {
-  const [wordSetId, setWordSetId] = useState<string>('');
-  const [studyType, setStudyType] = useState<StudyType>(StudyType.E2J);
-
   return (
-    <form className={grid}>
-      <p className='col-span-12'>
-        出題範囲(中学生、高校生、学年など)を選んでください
-      </p>
-      {ranges.map((v) => (
-        <Radio
-          name='range'
-          value={v.value}
-          onChange={(evt) => setWordSetId(evt.target.value)}
-          checked={v.value == wordSetId}
-          key={v.value}
-          required
-        >
-          {v.desc}
-        </Radio>
+    <div className={grid}>
+      <Header />
+      <h2 className='col-span-12 mb-0 mt-5 bg-gradient-to-r from-primary to-primary-content bg-clip-text text-center text-3xl text-transparent'>
+        学習方法を選択してください
+      </h2>
+      {[
+        {
+          link: './study/e2j',
+          title: '英語を日本語に',
+          desc: '英単語の意味を回答する問題です',
+        },
+        {
+          link: './study/j2e',
+          title: '日本語を英語に',
+          desc: '日本語の意味を回答する問題です',
+        },
+        {
+          link: './study/dict',
+          title: '単語帳',
+          desc: '訳や例文などが載っている単語帳です',
+        },
+      ].map((props) => (
+        <CustomCard
+          className='rounded-lg bg-slate-100'
+          key={props.title}
+          {...props}
+        />
       ))}
-
-      <p className='col-span-12 col-start-1'>タイプを選んでください</p>
-
-      {[StudyType.E2J, StudyType.J2E].map((type) => (
-        <Radio
-          name='studyType'
-          value={type}
-          onChange={(evt) => setStudyType(parseInt(evt.target.value))}
-          checked={type == studyType}
-          key={type}
-          required
-        >
-          {type}
-        </Radio>
-      ))}
-
-      <button className='btn btn-primary col-span-12'>Start</button>
-    </form>
+      <Footer />
+    </div>
   );
 }
