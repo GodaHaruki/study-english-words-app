@@ -7,3 +7,4 @@ pub(crate) mod non_escaped;
 pub(crate) mod escaped;
 pub(crate) mod field;
 pub(crate) mod header;
+pub(crate) mod record;
