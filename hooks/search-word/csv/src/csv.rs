@@ -1,14 +1,15 @@
-use crate::csv_value::CSVValue;
+use crate::{csv_value::CSVValue, parser::parse};
 
 pub const SPLIT_CHAR: char = ',';
 
+#[derive(Debug, PartialEq)]
 pub struct CSV {
-  pub header: Vec<Vec<CSVValue>>,
-  pub record: Vec<Vec<CSVValue>>,
+  pub header: Vec<CSVValue>,
+  pub records: Vec<Vec<CSVValue>>,
 }
 
 impl CSV {
   pub fn new(s: &str) -> Self {
-    unimplemented!()
+    parse(s).0
   }
 }
