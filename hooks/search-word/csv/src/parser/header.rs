@@ -10,24 +10,18 @@ pub fn header(s: &str) -> ParseResult<Vec<CSVValue>> {
 }
 
 fn header_rec(mut chars: Chars, mut v: Vec<CSVValue>) -> ParseResult<Vec<CSVValue>> {
-  match chars.next() {
-    Some(SPLIT_CHAR) => {
-      let (value, s) = field(chars.as_str());
-      v.push(value);
-
-      header_rec(s.chars(), v)
-    },
-    Some('\n') => (v, chars.as_str()),
-    Some('\r') => {
-      if chars.next() == Some('\n') {
-        (v, chars.as_str())
-      } else {
-        panic!("wrong csv")
-      }
-    },
-    Some(c) => panic!("wrong csv {}", c),
-    None => panic!("woudn't reach")
+  let str = chars.as_str();
+  let next = chars.next();
+  if next.map(move |c| <char as TryInto<u8>>::try_into(c).unwrap() < 0x20) == Some(true) {
+    return (v, str);
+  } else if next == None {
+    return (v, str);
   }
+
+  let (value, s) = field(chars.as_str());
+  v.push(value);
+
+  header_rec(s.chars(), v)
 }
 
 #[cfg(test)]
@@ -45,7 +39,7 @@ mod test_header {
       CSVValue::String("a🙃😉bc😀".to_string()),
       CSVValue::Float(3.14),
       CSVValue::String("samp\nle".to_string())
-      ], "")
+      ], "\r\n")
     );
   }
 }
