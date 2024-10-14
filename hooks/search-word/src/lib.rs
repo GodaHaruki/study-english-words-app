@@ -1,5 +1,3 @@
-use std::collections::BTreeMap;
-
 use csv::{csv::CSV, csv_value::CSVValue};
 use wasm_bindgen::prelude::wasm_bindgen;
 use word_distance::levenshtein::levenshtein;
@@ -8,7 +6,9 @@ use word_distances::WordDistances;
 pub mod word_distances;
 
 /*
-CSV
+CSV should follow RFC4180 Format
+https://www.rfc-editor.org/rfc/rfc4180.txt
+
 header: entry,meaning,ipa,word_id,example_sentence,translated_sentence,type
 value: [String, String, String, i32, String, String]
  */
@@ -36,16 +36,21 @@ pub fn get_word_distances(word: &str, target_csv: &str) -> WordDistances {
 pub fn get_word_distances_sorted(word: &str, target_csv: &str) -> WordDistances {
     let csv = CSV::new(target_csv);
 
-    let mut word_distances_sorted = BTreeMap::new();
-    csv.records.iter().for_each(|v| {
-        use CSVValue::*;
-        match &v[0] {
-            String(s) => word_distances_sorted.insert(levenshtein(word, s.as_str()), s.clone()),
-            _ => panic!("wrong csv"),
-        };
-    });
+    let mut temp = csv
+        .records
+        .iter()
+        .map(|v| {
+            use CSVValue::*;
+            match &v[0] {
+                String(s) => (levenshtein(word, s.as_str()), s.clone()),
+                _ => panic!("wrong csv"),
+            }
+        })
+        .collect::<Vec<(usize, String)>>();
 
-    let (distances, words) = word_distances_sorted.into_iter().unzip();
+    temp.sort_by(|(d0, _), (d1, _)| (*d0 - *d1).cmp(d0));
+
+    let (distances, words) = temp.into_iter().unzip();
 
     WordDistances::from(words, distances)
 }
