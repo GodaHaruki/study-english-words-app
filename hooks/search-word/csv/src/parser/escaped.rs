@@ -8,7 +8,7 @@ pub fn escaped(s: &str) -> ParseResult<CSVValue> {
   escaped_impl(s.chars(), String::new())
 }
 
-fn escaped_impl<'a>(mut chars: Chars<'a>, s: String) -> ParseResult<'a, CSVValue> {
+fn escaped_impl(mut chars: Chars<'_>, s: String) -> ParseResult<'_, CSVValue> {
   let next = chars.next();
   
   if next == Some('"') {

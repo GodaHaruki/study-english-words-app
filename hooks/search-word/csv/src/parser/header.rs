@@ -1,6 +1,6 @@
 use std::str::Chars;
 
-use crate::{csv::SPLIT_CHAR, csv_value::CSVValue};
+use crate::csv_value::CSVValue;
 
 use super::{field::field, ParseResult};
 
@@ -12,9 +12,7 @@ pub fn header(s: &str) -> ParseResult<Vec<CSVValue>> {
 fn header_rec(mut chars: Chars, mut v: Vec<CSVValue>) -> ParseResult<Vec<CSVValue>> {
   let str = chars.as_str();
   let next = chars.next();
-  if next.map(move |c| <char as TryInto<u8>>::try_into(c).unwrap() < 0x20) == Some(true) {
-    return (v, str);
-  } else if next == None {
+  if next.map(move |c| <char as TryInto<u8>>::try_into(c).unwrap() < 0x20) == Some(true) || next.is_none() {
     return (v, str);
   }
 

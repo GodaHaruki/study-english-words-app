@@ -13,9 +13,6 @@ pub(crate) mod record;
 
 type ParseResult<'a, T> = (T, &'a str);
 
-pub trait Parser<T> {}
-impl<T, F> Parser<T> for F where F: Fn(&str) -> ParseResult<T> {}
-
 pub fn parse(s: &str) -> ParseResult<CSV> {
   let (header, s) = header(s);
 
@@ -46,7 +43,7 @@ fn records_rec(mut chars: Chars, mut v: Vec<Vec<CSVValue>>) -> ParseResult<Vec<V
     Some('\r') => {
       if chars.next() == Some('\n') {
         let mut chars2 = chars.clone();
-        if chars2.next() == None {
+        if chars2.next().is_none() {
           (v, chars.as_str())
         } else {
           let (record, s) = record(chars.as_str());
@@ -60,7 +57,7 @@ fn records_rec(mut chars: Chars, mut v: Vec<Vec<CSVValue>>) -> ParseResult<Vec<V
     },
     Some('\n') => {
       let mut chars2 = chars.clone();
-      if chars2.next() == None {
+      if chars2.next().is_none() {
         (v, chars.as_str())
       } else {
         let (record, s) = record(chars.as_str());

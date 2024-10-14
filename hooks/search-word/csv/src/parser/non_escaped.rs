@@ -12,7 +12,7 @@ pub fn non_escaped(s: &str) -> ParseResult<CSVValue> {
 fn non_escaped_impl<'a>(s: &'a str, mut bytes: Bytes, index: usize) -> ParseResult<'a, CSVValue> {
   let code = bytes.next();
 
-  if code == Some(SPLIT_CHAR.try_into().unwrap()) || code.map(move |b| b < 0x20) == Some(true) || code == None {
+  if code == Some(SPLIT_CHAR.try_into().unwrap()) || code.map(move |b| b < 0x20) == Some(true) || code.is_none() {
     return (CSVValue::new(&s[0..index]), &s[index..])
   }
 

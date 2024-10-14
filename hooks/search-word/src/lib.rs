@@ -16,14 +16,18 @@ value: [String, String, String, i32, String, String]
 #[wasm_bindgen]
 pub fn get_word_distances(word: &str, target_csv: &str) -> WordDistances {
     let csv = CSV::new(target_csv);
-    
-    let (words, distances) = csv.records.iter().map(|v| {
-        use CSVValue::*;
-        match &v[0] {
-            String(s) => (s.clone(), levenshtein(word, s.as_str())),
-            _ => panic!("wrong csv")
-        }
-    }).unzip();
+
+    let (words, distances) = csv
+        .records
+        .iter()
+        .map(|v| {
+            use CSVValue::*;
+            match &v[0] {
+                String(s) => (s.clone(), levenshtein(word, s.as_str())),
+                _ => panic!("wrong csv"),
+            }
+        })
+        .unzip();
 
     WordDistances::from(words, distances)
 }
@@ -37,7 +41,7 @@ pub fn get_word_distances_sorted(word: &str, target_csv: &str) -> WordDistances 
         use CSVValue::*;
         match &v[0] {
             String(s) => word_distances_sorted.insert(levenshtein(word, s.as_str()), s.clone()),
-            _ => panic!("wrong csv")
+            _ => panic!("wrong csv"),
         };
     });
 

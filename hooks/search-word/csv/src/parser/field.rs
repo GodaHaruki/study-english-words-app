@@ -2,7 +2,7 @@ use crate::csv_value::CSVValue;
 
 use super::{escaped::escaped, non_escaped::non_escaped, ParseResult};
 
-pub fn field<'a>(s: &'a str) -> ParseResult<'a, CSVValue> {
+pub fn field(s: &str) -> ParseResult<'_, CSVValue> {
   let first = s.chars().next().unwrap();
 
   if first == '"' {

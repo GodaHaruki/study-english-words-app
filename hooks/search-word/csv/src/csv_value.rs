@@ -6,7 +6,7 @@ pub enum CSVValue {
 }
 
 impl CSVValue {
-  pub fn new<'a>(s: &'a str) -> Self {
+  pub fn new(s: &str) -> Self {
     if let Ok(n) = s.parse::<i32>() {
       Self::Number(n)
     } else if let Ok(f) = s.parse::<f32>() {
