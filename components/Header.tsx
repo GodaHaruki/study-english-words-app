@@ -75,7 +75,12 @@ export default function Header() {
             </label>
             <div className='table absolute w-full bg-primary-content'>
               {suggestions.slice(0, 5).map((w) => (
-                <button key={w} className='block ml-4 py-2' type="button" onClick={() => setQuery(w)}>
+                <button
+                  key={w}
+                  className='ml-4 block py-2'
+                  type='button'
+                  onClick={() => setQuery(w)}
+                >
                   {w}
                 </button>
               ))}
