@@ -1,8 +1,9 @@
 'use client';
 
 import { Grid } from '@/app/grid';
+import { useSearchWord } from '@/hooks/search-word/hooks';
 import Link from 'next/link';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 export default function Header() {
   enum SearchType {
@@ -10,6 +11,15 @@ export default function Header() {
     Word,
   }
   const [searchType, setSearchType] = useState<SearchType>(SearchType.Word);
+
+  const [query, setQuery] = useState<string>('');
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const { searchByWord } = useSearchWord('/words.csv');
+  function onSearchWordInputted(e: ChangeEvent<HTMLInputElement>) {
+    setQuery(e.target.value);
+    const wordDistances = searchByWord(e.target.value);
+    setSuggestions(wordDistances.map((v) => v.word));
+  }
 
   return (
     <Grid className='col-span-12 bg-primary-content'>
@@ -43,7 +53,13 @@ export default function Header() {
 
           <div className='my-auto'>
             <label className='input input-bordered ml-auto flex items-center gap-2'>
-              <input type='text' className='w-full grow' placeholder='Search' />
+              <input
+                type='text'
+                className='w-full grow'
+                placeholder='Search'
+                value={query}
+                onChange={onSearchWordInputted}
+              />
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 16 16'
@@ -57,6 +73,18 @@ export default function Header() {
                 />
               </svg>
             </label>
+            <div className='table absolute w-full bg-primary-content'>
+              {suggestions.slice(0, 5).map((w) => (
+                <button
+                  key={w}
+                  className='ml-4 block py-2'
+                  type='button'
+                  onClick={() => setQuery(w)}
+                >
+                  {w}
+                </button>
+              ))}
+            </div>
           </div>
         </form>
       </div>
