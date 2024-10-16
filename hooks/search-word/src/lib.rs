@@ -48,7 +48,7 @@ pub fn get_word_distances_sorted(word: &str, target_csv: &str) -> WordDistances 
         })
         .collect::<Vec<(usize, String)>>();
 
-    temp.sort_by(|(d0, _), (d1, _)| (*d0 - *d1).cmp(d0));
+    temp.sort_by(|(d0, _), (d1, _)| d0.cmp(d1));
 
     let (distances, words) = temp.into_iter().unzip();
 
