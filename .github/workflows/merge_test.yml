@@ -20,7 +20,7 @@ jobs:
         path: |
           ~/.npm
           node_modules/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
     - name: npm install
       run: npm i
@@ -43,7 +43,7 @@ jobs:
         path: |
           ~/.npm
           node_modules/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
     - name: npm install
       run: npm i
@@ -66,7 +66,10 @@ jobs:
         path: |
           ~/.npm
           node_modules/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
 
     - name: Cache cargo registry
       uses: actions/cache@v4
@@ -77,11 +80,7 @@ jobs:
           ~/.cargo/registry/cache/
           ~/.cargo/git/db/
           hooks/search-word/target/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('hooks/search-word/Cargo.lock') }}
-  
-  
-    - name: Install Rust
-      uses: dtolnay/rust-toolchain@stable
+        key: ${{ runner.os }}-cargo-wasm-pack-${{ hashFiles('hooks/search-word/Cargo.lock') }}
 
     - name: Install wasm-pack
       run: cargo install wasm-pack
@@ -98,6 +97,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+
     - name: Cache cargo registry
       uses: actions/cache@v4
       with:
@@ -107,11 +109,7 @@ jobs:
           ~/.cargo/registry/cache/
           ~/.cargo/git/db/
           hooks/search-word/target/
-        key: ${{ runner.os }}-cargo-wasm-pack-${{ hashFiles('hooks/search-word/Cargo.lock') }}
-
-
-    - name: Install Rust
-      uses: dtolnay/rust-toolchain@stable
+        key: ${{ runner.os }}-cargo-${{ hashFiles('hooks/search-word/Cargo.lock') }}
 
     - name: test
       working-directory: hooks/search-word/
