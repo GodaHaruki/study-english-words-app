@@ -14,6 +14,14 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4.0.4
 
+    - name: Cache npm
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.npm
+          node_modules/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/package-lock.json') }}
+
     - name: npm install
       run: npm i
     - name: npm run lint
@@ -29,7 +37,64 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4.0.4
 
+    - name: Cache npm
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.npm
+          node_modules/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/package-lock.json') }}
+
     - name: npm install
       run: npm i
     - name: npm run format
       run: npm run format
+  
+  build:
+    name: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4.0.4
+
+    - name: Cache npm
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.npm
+          node_modules/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/package-lock.json') }}
+
+    - name: npm install
+      run: npm i
+    - name: npm run build
+      run: npm run build
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Cache cargo registry
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          hooks/search-word/target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('hooks/search-word/Cargo.lock') }}
+
+
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: test
+      working-directory: hooks/search-word/
+      runs: cargo test
