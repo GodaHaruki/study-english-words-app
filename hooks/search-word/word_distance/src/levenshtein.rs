@@ -2,7 +2,7 @@ use std::cmp::max;
 
 pub fn levenshtein(a: &str, b: &str) -> usize {
   let len_a = a.chars().count();
-  let len_b = a.chars().count();
+  let len_b = b.chars().count();
 
   if len_a == 0 || len_b == 0 {
     return max(len_a, len_b);
