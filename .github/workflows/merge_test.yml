@@ -107,7 +107,7 @@ jobs:
           ~/.cargo/registry/cache/
           ~/.cargo/git/db/
           hooks/search-word/target/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('hooks/search-word/Cargo.lock') }}
+        key: ${{ runner.os }}-cargo-wasm-pack-${{ hashFiles('hooks/search-word/Cargo.lock') }}
 
 
     - name: Install Rust
