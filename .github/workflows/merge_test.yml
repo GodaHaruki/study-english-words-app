@@ -68,6 +68,24 @@ jobs:
           node_modules/
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/package-lock.json') }}
 
+        - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            hooks/search-word/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('hooks/search-word/Cargo.lock') }}
+  
+  
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Install wasm-pack
+      runs: Cargo install wasm-pack
+
     - name: npm install
       run: npm i
     - name: npm run build
