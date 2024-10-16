@@ -84,7 +84,7 @@ jobs:
       uses: dtolnay/rust-toolchain@stable
 
     - name: Install wasm-pack
-      run: Cargo install wasm-pack
+      run: cargo install wasm-pack
 
     - name: npm install
       run: npm i
