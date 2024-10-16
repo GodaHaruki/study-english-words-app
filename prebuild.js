@@ -1,3 +1,5 @@
-const { execSync } = require('child_process')
+const { execSync } = require('child_process');
 
-console.log(execSync('cd hooks/search-word/ && wasm-pack build --target web').toString())
+console.log(
+  execSync('cd hooks/search-word/ && wasm-pack build --target web').toString(),
+);
