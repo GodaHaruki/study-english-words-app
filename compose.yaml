@@ -8,11 +8,17 @@ services:
     tty: true
     restart: always
     volumes:
-      - .:/app
-      - /app/node_modules
+      - type: bind
+        source: .
+        target: /app
+      - type: volume
+        source: node_modules
+        target: /app/node_modules
     environment:
       - WATCHPACK_POLLING=true
     ports:
       - "3000:3000"
-    #start development server
-    command: sh -c "npm run dev"
+    # start development server
+    command: bash -c "npm run dev"
+volumes:
+  node_modules:
