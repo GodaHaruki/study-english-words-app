@@ -97,4 +97,4 @@ jobs:
 
     - name: test
       working-directory: hooks/search-word/
-      runs: cargo test
+      run: cargo test
