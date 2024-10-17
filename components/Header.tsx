@@ -25,7 +25,7 @@ export default function Header() {
     <Grid className='col-span-12 bg-primary-content'>
       <div className='col-span-12 sm:col-span-4 sm:col-start-1'>
         <p className='text-center text-3xl'>
-          <Link href='./' className='text-inherit no-underline'>
+          <Link href='/' className='text-inherit no-underline'>
             App Name
           </Link>
         </p>
