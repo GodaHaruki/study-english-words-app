@@ -17,11 +17,11 @@ fn escaped_impl(mut chars: Chars<'_>, s: String) -> ParseResult<'_, CSVValue> {
     if next == Some('"') {
       return escaped_impl(chars, s + "\"")
     } else {
-      return (CSVValue::new(s.as_str()), str);
+      return (CSVValue::String(s), str);
     }
   }
 
-  escaped_impl(chars, s + next.expect("wrong csv").to_string().as_str())
+  escaped_impl(chars, s + next.expect("expect \" but not found").to_string().as_str())
 }
 
 #[cfg(test)]
