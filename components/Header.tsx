@@ -14,7 +14,7 @@ export default function Header() {
 
   const [query, setQuery] = useState<string>('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const { searchByWord } = useSearchWord('/words.csv');
+  const { searchByWord } = useSearchWord('/words.csv', 0);
   function onSearchWordInputted(e: ChangeEvent<HTMLInputElement>) {
     setQuery(e.target.value);
     const wordDistances = searchByWord(e.target.value);
