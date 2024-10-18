@@ -14,8 +14,12 @@ export const useSearchWord = (CSVPath: string, CSVColumnPosition: number) => {
     init();
   }, []);
 
-  const searchByWord = (q: string) => {
-    const { words, distances } = get_word_distances_sorted(q, csv, CSVColumnPosition);
+  const searchByWord = async (q: string) => {
+    const { words, distances } = get_word_distances_sorted(
+      q,
+      csv,
+      CSVColumnPosition,
+    );
 
     return words.map((w: string, i: number) => {
       return { word: w, distance: distances[i] };
