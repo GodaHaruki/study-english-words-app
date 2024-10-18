@@ -21,7 +21,7 @@ fn set_error_hook(){
 }
 
 #[wasm_bindgen]
-pub fn get_word_distances(word: &str, target_csv: &str) -> WordDistances {
+pub fn get_word_distances(word: &str, target_csv: &str, csv_column_position: usize) -> WordDistances {
     set_error_hook();
 
     let csv = CSV::new(target_csv);
@@ -31,7 +31,7 @@ pub fn get_word_distances(word: &str, target_csv: &str) -> WordDistances {
         .iter()
         .map(|v| {
             use CSVValue::*;
-            match &v[0] {
+            match &v[csv_column_position] {
                 String(s) => (s.clone(), levenshtein(word, s.as_str())),
                 Float(f) => panic!("expect String but found float {}", f),
                 Number(n) => panic!("expect String but found number {}", n)
@@ -45,7 +45,7 @@ pub fn get_word_distances(word: &str, target_csv: &str) -> WordDistances {
 
 
 #[wasm_bindgen]
-pub fn get_word_distances_sorted(word: &str, target_csv: &str) -> WordDistances {
+pub fn get_word_distances_sorted(word: &str, target_csv: &str, csv_column_position: usize) -> WordDistances {
     set_error_hook();
 
     let csv = CSV::new(target_csv);
@@ -55,7 +55,7 @@ pub fn get_word_distances_sorted(word: &str, target_csv: &str) -> WordDistances 
         .iter()
         .map(|v| {
             use CSVValue::*;
-            match &v[0] {
+            match &v[csv_column_position] {
                 String(s) => (levenshtein(word, s.as_str()), s.clone()),
                 Float(f) => panic!("expect String but found float {}", f),
                 Number(n) => panic!("expect String but found number {}", n)
