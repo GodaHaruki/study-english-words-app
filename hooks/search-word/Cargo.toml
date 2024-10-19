@@ -10,7 +10,7 @@ crate-type = ["cdylib"]
 error_handle = []
 
 [dependencies]
-"csv" = { path = "csv" }
 "word_distance" = { path = "word_distance" }
 wasm-bindgen = "0.2.95"
 console_error_panic_hook = "0.1.7"
+csv = "1.3.0"

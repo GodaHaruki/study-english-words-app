@@ -1,6 +1,5 @@
 extern crate console_error_panic_hook;
 
-use csv::{csv::CSV, csv_value::CSVValue};
 use wasm_bindgen::prelude::wasm_bindgen;
 use word_distance::levenshtein::levenshtein;
 use word_distances::WordDistances;
@@ -24,42 +23,29 @@ fn set_error_hook(){
 pub fn get_word_distances(word: &str, target_csv: &str, csv_column_position: usize) -> WordDistances {
     set_error_hook();
 
-    let csv = CSV::new(target_csv);
+    let mut csv = csv::Reader::from_reader(target_csv.as_bytes());
 
-    let (words, distances) = csv
-        .records
-        .iter()
+    let (distances, words) = csv
+        .records()
         .map(|v| {
-            use CSVValue::*;
-            match &v[csv_column_position] {
-                String(s) => (s.clone(), levenshtein(word, s.as_str())),
-                Float(f) => panic!("expect String but found float {}", f),
-                Number(n) => panic!("expect String but found number {}", n)
-            }
-        })
-        .unzip();
+            let v = v.unwrap();
+            (levenshtein(word, &v[csv_column_position]), v[csv_column_position].to_string())
+        }).unzip();
 
     WordDistances::from(words, distances)
 }
-
-
 
 #[wasm_bindgen]
 pub fn get_word_distances_sorted(word: &str, target_csv: &str, csv_column_position: usize) -> WordDistances {
     set_error_hook();
 
-    let csv = CSV::new(target_csv);
+    let mut csv = csv::Reader::from_reader(target_csv.as_bytes());
 
     let mut temp = csv
-        .records
-        .iter()
+        .records()
         .map(|v| {
-            use CSVValue::*;
-            match &v[csv_column_position] {
-                String(s) => (levenshtein(word, s.as_str()), s.clone()),
-                Float(f) => panic!("expect String but found float {}", f),
-                Number(n) => panic!("expect String but found number {}", n)
-            }
+            let v = v.unwrap();
+            (levenshtein(word, &v[csv_column_position]), v[csv_column_position].to_string())
         })
         .collect::<Vec<(usize, String)>>();
 
