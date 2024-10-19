@@ -75,12 +75,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: |
-          ~/.cargo/crates.toml
-          ~/.cargo/crates2.json
-          ~/.cargo/bin/
-          ~/.cargo/registry/index/
-          ~/.cargo/registry/cache/
-          ~/.cargo/git/db/
+          ~/.cargo/
           hooks/search-word/target/
         key: ${{ runner.os }}-cargo-wasm-pack-${{ hashFiles('hooks/search-word/Cargo.toml') }}
 
@@ -106,12 +101,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: |
-          ~/.cargo/crates.toml
-          ~/.cargo/crates2.json
-          ~/.cargo/bin/
-          ~/.cargo/registry/index/
-          ~/.cargo/registry/cache/
-          ~/.cargo/git/db/
+          ~/.cargo/
           hooks/search-word/target/
         key: ${{ runner.os }}-cargo-${{ hashFiles('hooks/search-word/Cargo.toml') }}
 
