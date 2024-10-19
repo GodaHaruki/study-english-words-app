@@ -1,3 +1,5 @@
+extern crate console_error_panic_hook;
+
 use csv::{csv::CSV, csv_value::CSVValue};
 use wasm_bindgen::prelude::wasm_bindgen;
 use word_distance::levenshtein::levenshtein;
@@ -13,8 +15,15 @@ header: entry,meaning,ipa,word_id,example_sentence,translated_sentence,type
 value: [String, String, String, i32, String, String]
  */
 
+fn set_error_hook(){
+    #[cfg(feature = "error_handle")]
+    std::panic::set_hook(Box::new(console_error_panic_hook::hook));
+}
+
 #[wasm_bindgen]
-pub fn get_word_distances(word: &str, target_csv: &str) -> WordDistances {
+pub fn get_word_distances(word: &str, target_csv: &str, csv_column_position: usize) -> WordDistances {
+    set_error_hook();
+
     let csv = CSV::new(target_csv);
 
     let (words, distances) = csv
@@ -22,9 +31,10 @@ pub fn get_word_distances(word: &str, target_csv: &str) -> WordDistances {
         .iter()
         .map(|v| {
             use CSVValue::*;
-            match &v[0] {
+            match &v[csv_column_position] {
                 String(s) => (s.clone(), levenshtein(word, s.as_str())),
-                _ => panic!("wrong csv"),
+                Float(f) => panic!("expect String but found float {}", f),
+                Number(n) => panic!("expect String but found number {}", n)
             }
         })
         .unzip();
@@ -32,8 +42,12 @@ pub fn get_word_distances(word: &str, target_csv: &str) -> WordDistances {
     WordDistances::from(words, distances)
 }
 
+
+
 #[wasm_bindgen]
-pub fn get_word_distances_sorted(word: &str, target_csv: &str) -> WordDistances {
+pub fn get_word_distances_sorted(word: &str, target_csv: &str, csv_column_position: usize) -> WordDistances {
+    set_error_hook();
+
     let csv = CSV::new(target_csv);
 
     let mut temp = csv
@@ -41,9 +55,10 @@ pub fn get_word_distances_sorted(word: &str, target_csv: &str) -> WordDistances 
         .iter()
         .map(|v| {
             use CSVValue::*;
-            match &v[0] {
+            match &v[csv_column_position] {
                 String(s) => (levenshtein(word, s.as_str()), s.clone()),
-                _ => panic!("wrong csv"),
+                Float(f) => panic!("expect String but found float {}", f),
+                Number(n) => panic!("expect String but found number {}", n)
             }
         })
         .collect::<Vec<(usize, String)>>();

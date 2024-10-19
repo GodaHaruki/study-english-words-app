@@ -20,11 +20,11 @@ pub fn parse(s: &str) -> ParseResult<CSV> {
   match chars.next() {
     Some('\r') => {
       if chars.next() != Some('\n') {
-        panic!("wrong csv")
+        panic!("expect \n but not found")
       }
     },
     Some('\n') => (),
-    _ => panic!("wrong csv")
+    _ => panic!("expect CRLF or LF but not found")
   };
   let (records, s) = records(chars.as_str());
 
@@ -52,7 +52,7 @@ fn records_rec(mut chars: Chars, mut v: Vec<Vec<CSVValue>>) -> ParseResult<Vec<V
           records_rec(s.chars(), v)
         }
       } else {
-        panic!("wrong csv")
+        panic!("expect \n but not found")
       }
     },
     Some('\n') => {
@@ -66,7 +66,7 @@ fn records_rec(mut chars: Chars, mut v: Vec<Vec<CSVValue>>) -> ParseResult<Vec<V
         records_rec(s.chars(), v)
       }
     },
-    Some(c) => panic!("wrong csv {}", c)
+    Some(c) => panic!("expect CRLF or LF but found {}", c)
   }
 }
 
