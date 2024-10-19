@@ -23,7 +23,7 @@ function Title(props: { type: string }) {
 
 export default function StudyWordSetId() {
   const studyType  = useParams<{studyType:"e2j"|"j2e"|"dict"}>().studyType;
-  const studyTypeText = {'e2j':"英語を日本語に", 'j2e':"日本語を英語", 'dict':"単語帳"};
+  const studyTypeText = {'e2j':"英語を日本語に", 'j2e':"日本語を英語に", 'dict':"単語帳"};
 
   return (
     <div className={grid}>

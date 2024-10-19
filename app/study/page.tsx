@@ -45,7 +45,7 @@ export default function Study() {
         {
           link: '/study/j2e',
           title: '日本語を英語に',
-          desc: '日本語の意味を回答する問題です',
+          desc: '日本語を英語にする問題です',
         },
         {
           link: '/study/dict',
