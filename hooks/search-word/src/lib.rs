@@ -14,13 +14,17 @@ header: entry,meaning,ipa,word_id,example_sentence,translated_sentence,type
 value: [String, String, String, i32, String, String]
  */
 
-fn set_error_hook(){
+fn set_error_hook() {
     #[cfg(feature = "error_handle")]
     std::panic::set_hook(Box::new(console_error_panic_hook::hook));
 }
 
 #[wasm_bindgen]
-pub fn get_word_distances(word: &str, target_csv: &str, csv_column_position: usize) -> WordDistances {
+pub fn get_word_distances(
+    word: &str,
+    target_csv: &str,
+    csv_column_position: usize,
+) -> WordDistances {
     set_error_hook();
 
     let mut csv = csv::Reader::from_reader(target_csv.as_bytes());
@@ -29,14 +33,22 @@ pub fn get_word_distances(word: &str, target_csv: &str, csv_column_position: usi
         .records()
         .map(|v| {
             let v = v.unwrap();
-            (levenshtein(word, &v[csv_column_position]), v[csv_column_position].to_string())
-        }).unzip();
+            (
+                levenshtein(word, &v[csv_column_position]),
+                v[csv_column_position].to_string(),
+            )
+        })
+        .unzip();
 
     WordDistances::from(words, distances)
 }
 
 #[wasm_bindgen]
-pub fn get_word_distances_sorted(word: &str, target_csv: &str, csv_column_position: usize) -> WordDistances {
+pub fn get_word_distances_sorted(
+    word: &str,
+    target_csv: &str,
+    csv_column_position: usize,
+) -> WordDistances {
     set_error_hook();
 
     let mut csv = csv::Reader::from_reader(target_csv.as_bytes());
@@ -45,7 +57,10 @@ pub fn get_word_distances_sorted(word: &str, target_csv: &str, csv_column_positi
         .records()
         .map(|v| {
             let v = v.unwrap();
-            (levenshtein(word, &v[csv_column_position]), v[csv_column_position].to_string())
+            (
+                levenshtein(word, &v[csv_column_position]),
+                v[csv_column_position].to_string(),
+            )
         })
         .collect::<Vec<(usize, String)>>();
 
