@@ -1,16 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as parser from './file';
-
-export interface Options {
-  header?: boolean;
-}
+import { CSV, Options } from './file';
 
 export const useCSV = (CSVPath: string, options?: Options) => {
-  const [csv, setCSV] = useState<
-    Promise<{ header: string[]; records: string[][] }>
-  >(
+  const [csv, setCSV] = useState<Promise<CSV>>(
     new Promise((resolve, reject) =>
       fetch(CSVPath)
         .then((f) => f.text())

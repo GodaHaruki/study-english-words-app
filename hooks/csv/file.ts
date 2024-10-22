@@ -1,10 +1,15 @@
-import { Options } from './hooks';
 import record from './record';
 
-const csv = (
-  s: string,
-  options?: Options,
-): { header: string[]; records: string[][] } => {
+export interface CSV {
+  header: string[];
+  records: string[][];
+}
+
+export interface Options {
+  header?: boolean;
+}
+
+const csv = (s: string, options?: Options): CSV => {
   let left = s;
 
   const is_header =
