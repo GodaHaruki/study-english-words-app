@@ -10,6 +10,9 @@ const withPWA = nextPWA({
 const nextConfig = withPWA({
   reactStrictMode: true,
   trailingSlash: true,
-});
 
+
+// https://github.com/vercel/next.js/issues/56253
+  output: process.env.NODE_ENV === 'development' ? undefined : 'export'
+});
 export default nextConfig;

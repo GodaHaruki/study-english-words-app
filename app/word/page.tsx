@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Grid } from '../grid';
-import type { Word } from '../study/[wordSetId]/[studyType]/page';
 
 enum SearchType {
   Mean,
