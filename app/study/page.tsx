@@ -38,17 +38,17 @@ export default function Study() {
       </h2>
       {[
         {
-          link: './study/e2j',
+          link: './E2J',
           title: '英語を日本語に',
           desc: '英単語の意味を回答する問題です',
         },
         {
-          link: './study/j2e',
+          link: './J2E',
           title: '日本語を英語に',
           desc: '日本語の意味を回答する問題です',
         },
         {
-          link: './study/dict',
+          link: './dict',
           title: '単語帳',
           desc: '訳や例文などが載っている単語帳です',
         },
