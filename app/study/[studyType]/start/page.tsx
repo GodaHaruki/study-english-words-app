@@ -1,4 +1,4 @@
-import { StudyType } from "../types";
+import { StudyType } from '../types';
 
 export const dynamicParams = false;
 
@@ -21,10 +21,12 @@ export default function Study() {
   return (
     <div className='grid grid-cols-12'>
       {words.map((word) => {
-        return(
-          <p key={word.word}>{word.word},{word.mean}</p>
-        )
-        })}
+        return (
+          <p key={word.word}>
+            {word.word},{word.mean}
+          </p>
+        );
+      })}
     </div>
   );
 }
