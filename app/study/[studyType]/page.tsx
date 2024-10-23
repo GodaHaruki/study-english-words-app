@@ -19,7 +19,9 @@ function Title(props: { type: 'e2j' | 'j2e' | 'dict' }) {
       <p className='col-span-8 my-5 text-center text-3xl md:col-span-4'>
         {
           studyTypeProps[
-            Object.keys(props.type) as unknown as keyof typeof StudyType
+            Object.entries(StudyType).find(
+              ([, value]) => props.type === value,
+            )![0] as keyof typeof StudyType
           ].title
         }
       </p>
