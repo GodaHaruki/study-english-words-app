@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { CSV, Options } from './file';
-import { useCSV } from './hooks';
+import { CSVType, useCSV } from './hooks';
 
-export class CSVLoaderForSuspense {
+export class CSVLoaderForSuspense<Path extends '/words.csv' | (string & {})> {
   #state:
     | {
         type: 'pending';
@@ -10,14 +10,14 @@ export class CSVLoaderForSuspense {
       }
     | {
         type: 'fulfilled';
-        result: CSV;
+        result: CSVType<Path>;
       }
     | {
         type: 'rejected';
         error: unknown;
       };
 
-  constructor(CSVPath: string, options?: Options) {
+  constructor(CSVPath: Path, options?: Options) {
     const promise = useCSV(CSVPath, options)
       .then((result) => {
         this.#state = { type: 'fulfilled', result };
@@ -32,7 +32,7 @@ export class CSVLoaderForSuspense {
     };
   }
 
-  get(): CSV {
+  get(): CSVType<Path> {
     switch (this.#state.type) {
       case 'pending': {
         throw this.#state.promise;
