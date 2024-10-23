@@ -51,16 +51,16 @@ export default function SelectItem(props: {
             name='num'
             className='select select-bordered my-0 w-5/6 self-center'
           >
-          {questionNumList.map((i) => {
-            return (
-              <option key={i} value={i}>
-                {i}
-              </option>
-            );
-          })}
-          <option key='all' value='-1'>
-            全て(約1000~7000問)
-          </option>
+            {questionNumList.map((i) => {
+              return (
+                <option key={i} value={i}>
+                  {i}
+                </option>
+              );
+            })}
+            <option key='all' value='-1'>
+              全て(約1000~7000問)
+            </option>
           </select>
         </div>
       </label>,
