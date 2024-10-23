@@ -2,7 +2,11 @@ import { grid } from '@/app/grid';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Link from 'next/link';
-import SelectItem from './selectItem';
+import React from 'react';
+import { StudyType } from './types';
+import { J2E } from './J2E';
+import { E2J } from './E2J';
+import { Dict } from './Dict';
 
 export const studyTypeText = {
   e2j: '英語を日本語に',
@@ -24,18 +28,16 @@ function Title(props: { type: 'e2j' | 'j2e' | 'dict' }) {
     </div>
   );
 }
-const StudyType = {
-  j2e: 'j2e',
-  e2j: 'e2j',
-  dict: 'dict',
-} as const;
+
 
 export const dynamicParams = false;
 
 export const generateStaticParams = async () => {
   const studyTypes = Object.keys(StudyType);
 
-  return studyTypes.map((studyType) => ({ studyType }));
+  return studyTypes.map((studyType) => ({
+    studyType: StudyType[studyType as keyof typeof StudyType],
+  }));
 };
 
 export default function Page({
@@ -45,6 +47,15 @@ export default function Page({
 }) {
   const { studyType } = params;
 
+  const studyTypeKey = Object.entries(StudyType).find(
+    ([, value]) => studyType === value,
+  )![0] as keyof typeof StudyType;
+
+  const pages: Record<keyof typeof StudyType, React.ReactNode> = {
+    J2E: <J2E />,
+    E2J: <E2J />,
+    Dict: <Dict />,
+  };
   return (
     <div className={grid}>
       <Header />
@@ -54,7 +65,7 @@ export default function Page({
           className='col-span-12 grid grid-cols-12 rounded-lg bg-slate-100'
           action='./start'
         >
-          <SelectItem studyType={studyType} />
+          {pages[studyTypeKey]}
           <button
             type='submit'
             className='btn btn-primary col-span-8 col-start-3 mb-3 mt-6 self-center'
