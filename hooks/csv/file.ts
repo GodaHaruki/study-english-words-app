@@ -1,6 +1,6 @@
 import record from './record';
 
-export interface CSV {
+export interface CSV<Path extends string> {
   header: string[];
   records: string[][];
 }
@@ -9,7 +9,7 @@ export interface Options {
   header?: boolean;
 }
 
-const csv = (s: string, options?: Options): CSV => {
+const csv = (s: string, options?: Options): CSV<string> => {
   let left = s;
 
   const is_header =
