@@ -121,8 +121,8 @@ export default function SelectItem(props:{studyType:"j2e"|"e2j"|"dict"}) {
         <div className='col-span-6 flex items-center justify-center'>
           <p className='mx-2 my-0'>自動再生</p>
         </div>
-        <div className='col-span-6'>
-          <input type='checkbox' name='auto' checked={isAuto} onChange={(e)=>setIsAuto(e.target.checked)}/>
+        <div className='col-span-6 flex items-center justify-center'>
+          <input type='checkbox' name='auto' className="toggle toggle-primary" checked={isAuto} onChange={(e)=>setIsAuto(e.target.checked)}/>
         </div>
       </label>,
       <label
@@ -135,6 +135,7 @@ export default function SelectItem(props:{studyType:"j2e"|"e2j"|"dict"}) {
         <div className='col-span-6'>
           <select
             name='delay'
+            disabled={!isAuto}
             className='select select-bordered my-0 w-5/6 self-center'
           >
             {Array(11).fill(null).map((_,i)=>{
