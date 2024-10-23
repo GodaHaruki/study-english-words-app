@@ -50,8 +50,11 @@ export default function Page({
       <Header />
       <Title type={studyType} />
       <div className={'col-span-12 mx-5'}>
-        <form className='col-span-12 grid grid-cols-12 rounded-lg bg-slate-100' action="./start">
-          <SelectItem studyType={studyType}/>
+        <form
+          className='col-span-12 grid grid-cols-12 rounded-lg bg-slate-100'
+          action='./start'
+        >
+          <SelectItem studyType={studyType} />
           <button
             type='submit'
             className='btn btn-primary col-span-8 col-start-3 mb-3 mt-6 self-center'

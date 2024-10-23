@@ -1,9 +1,11 @@
-"use client"
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-export default function SelectItem(props:{studyType:"j2e"|"e2j"|"dict"}) {
-  const [isAuto,setIsAuto] = useState<boolean>(false);
+export default function SelectItem(props: {
+  studyType: 'j2e' | 'e2j' | 'dict';
+}) {
+  const [isAuto, setIsAuto] = useState<boolean>(false);
 
   const selectItemJSX: {
     e2j: JSX.Element[];
@@ -122,7 +124,13 @@ export default function SelectItem(props:{studyType:"j2e"|"e2j"|"dict"}) {
           <p className='mx-2 my-0'>自動再生</p>
         </div>
         <div className='col-span-6 flex items-center justify-center'>
-          <input type='checkbox' name='auto' className="toggle toggle-primary" checked={isAuto} onChange={(e)=>setIsAuto(e.target.checked)}/>
+          <input
+            type='checkbox'
+            name='auto'
+            className='toggle toggle-primary'
+            checked={isAuto}
+            onChange={(e) => setIsAuto(e.target.checked)}
+          />
         </div>
       </label>,
       <label
@@ -138,20 +146,20 @@ export default function SelectItem(props:{studyType:"j2e"|"e2j"|"dict"}) {
             disabled={!isAuto}
             className='select select-bordered my-0 w-5/6 self-center'
           >
-            {Array(11).fill(null).map((_,i)=>{
-              return(
-                <option key={i+5} value={i+5}>{i+5}秒</option>
-              )
-            })}
+            {Array(11)
+              .fill(null)
+              .map((_, i) => {
+                return (
+                  <option key={i + 5} value={i + 5}>
+                    {i + 5}秒
+                  </option>
+                );
+              })}
           </select>
         </div>
       </label>,
     ],
   };
 
-  return (
-    <>
-    {selectItemJSX[props.studyType].map((item)=>item)}
-    </>
-  );
+  return <>{selectItemJSX[props.studyType].map((item) => item)}</>;
 }

@@ -40,17 +40,17 @@ export default function Study() {
       {[
         {
           link: '/study/e2j',
-          title: studyTypeText["e2j"],
+          title: studyTypeText['e2j'],
           desc: '英単語の意味を回答する問題です',
         },
         {
           link: '/study/j2e',
-          title: studyTypeText["j2e"],
+          title: studyTypeText['j2e'],
           desc: '日本語を英語にする問題です',
         },
         {
           link: '/study/dict',
-          title: studyTypeText["dict"],
+          title: studyTypeText['dict'],
           desc: '訳や例文などが載っている単語帳です',
         },
       ].map((props) => (
