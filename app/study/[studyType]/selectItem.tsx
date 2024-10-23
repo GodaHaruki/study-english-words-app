@@ -8,6 +8,10 @@ export default function SelectItem(props: {
   const [isAuto, setIsAuto] = useState<boolean>(false);
   const [j2eType, setJ2eType] = useState<'select' | 'input'>('select');
 
+  const questionNumList: number[] = [
+    10, 20, 30, 40, 50, 100, 150, 200, 300, 400, 500,
+  ];
+
   const selectItemJSX: {
     e2j: JSX.Element[];
     j2e: JSX.Element[];
@@ -47,9 +51,16 @@ export default function SelectItem(props: {
             name='num'
             className='select select-bordered my-0 w-5/6 self-center'
           >
-            <option value='10'>10</option>
-            <option value='20'>20</option>
-            <option value='30'>30</option>
+          {questionNumList.map((i) => {
+            return (
+              <option key={i} value={i}>
+                {i}
+              </option>
+            );
+          })}
+          <option key='all' value='-1'>
+            全て(約1000~7000問)
+          </option>
           </select>
         </div>
       </label>,
@@ -88,9 +99,16 @@ export default function SelectItem(props: {
             name='num'
             className='select select-bordered my-0 w-5/6 self-center'
           >
-            <option value='10'>10</option>
-            <option value='20'>20</option>
-            <option value='30'>30</option>
+            {questionNumList.map((i) => {
+              return (
+                <option key={i} value={i}>
+                  {i}
+                </option>
+              );
+            })}
+            <option key='all' value='-1'>
+              全て(約1000~7000問)
+            </option>
           </select>
         </div>
       </label>,
