@@ -5,10 +5,6 @@ import { useState } from 'react';
 export const Dict = () => {
   const [isAuto, setIsAuto] = useState<boolean>(false);
 
-  const questionNumList: number[] = [
-    10, 20, 30, 40, 50, 100, 150, 200, 300, 400, 500,
-  ];
-
   const selectItemJSX: JSX.Element[] = [
     <label
       key='1'

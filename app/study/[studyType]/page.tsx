@@ -3,16 +3,10 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Link from 'next/link';
 import React from 'react';
-import { StudyType } from './types';
+import { StudyType, studyTypeProps } from './types';
 import { J2E } from './J2E';
 import { E2J } from './E2J';
 import { Dict } from './Dict';
-
-export const studyTypeText = {
-  e2j: '英語を日本語に',
-  j2e: '日本語を英語に',
-  dict: '単語帳',
-};
 
 function Title(props: { type: 'e2j' | 'j2e' | 'dict' }) {
   return (
@@ -23,17 +17,22 @@ function Title(props: { type: 'e2j' | 'j2e' | 'dict' }) {
         </Link>
       </p>
       <p className='col-span-8 my-5 text-center text-3xl md:col-span-4'>
-        {studyTypeText[props.type]}
+        {
+          studyTypeProps[
+            Object.keys(props.type) as unknown as keyof typeof StudyType
+          ].title
+        }
       </p>
     </div>
   );
 }
 
-
 export const dynamicParams = false;
 
 export const generateStaticParams = async () => {
-  const studyTypes = Object.keys(StudyType);
+  const studyTypes = Object.keys(
+    StudyType,
+  ) as unknown as (keyof typeof StudyType)[];
 
   return studyTypes.map((studyType) => ({
     studyType: StudyType[studyType as keyof typeof StudyType],

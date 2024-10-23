@@ -2,7 +2,7 @@ import { grid } from '../grid';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
-import { StudyType } from './[studyType]/types';
+import { StudyType, studyTypeProps } from './[studyType]/types';
 
 interface CustomCardProps {
   className: string;
@@ -42,20 +42,20 @@ export default function Study() {
     {
       className,
       link: `./${StudyType.E2J}`,
-      title: '英語を日本語に',
-      desc: '英単語の意味を回答する問題です',
+      title: studyTypeProps.E2J.title,
+      desc: studyTypeProps.E2J.desc,
     },
     {
       className,
       link: `./${StudyType.J2E}`,
-      title: '日本語を英語に',
-      desc: '日本語の意味を回答する問題です',
+      title: studyTypeProps.J2E.title,
+      desc: studyTypeProps.J2E.desc,
     },
     {
       className,
       link: `./${StudyType.Dict}`,
-      title: '単語帳',
-      desc: '訳や例文などが載っている単語帳です',
+      title: studyTypeProps.Dict.title,
+      desc: studyTypeProps.Dict.desc,
     },
   ];
 
