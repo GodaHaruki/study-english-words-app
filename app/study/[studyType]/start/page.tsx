@@ -1,57 +1,15 @@
-'use client';
+import { StudyType } from "../types";
 
-import { Grid } from '@/app/grid';
-// import { useParams } from "next/navigation"
-import { useEffect, useState } from 'react';
+export const dynamicParams = false;
 
-export type Word = {
-  word: string;
-  mean: string;
-};
+export const generateStaticParams = async () => {
+  const studyTypes = Object.keys(
+    StudyType,
+  ) as unknown as (keyof typeof StudyType)[];
 
-type StudyComponent = ({ word }: { word: Word }) => React.ReactNode;
-
-const J2E: StudyComponent = ({ word }) => {
-  const [checked, setChecked] = useState<boolean>(false);
-  useEffect(() => setChecked(false), [word]);
-
-  return (
-    <>
-      <div className='mockup-window col-span-12 border border-base-300'>
-        <div className='flex justify-center bg-base-200 px-4 py-16'>
-          <input
-            type='radio'
-            name='word'
-            id='mean'
-            className='peer/mean hidden'
-            onChange={() => setChecked(!checked)}
-            checked={checked}
-          ></input>
-          <label
-            htmlFor='mean'
-            className='block size-full text-center peer-checked/mean:hidden'
-          >
-            <p className='text-8xl font-bold'>{word.mean}</p>
-          </label>
-
-          <input
-            type='radio'
-            name='word'
-            id='word'
-            className='peer/word hidden'
-            onChange={() => setChecked(!checked)}
-            checked={!checked}
-          ></input>
-          <label
-            htmlFor='word'
-            className='block size-full text-center peer-checked/word:hidden'
-          >
-            <p className='text-8xl font-bold'>{word.word}</p>
-          </label>
-        </div>
-      </div>
-    </>
-  );
+  return studyTypes.map((studyType) => ({
+    studyType: StudyType[studyType as keyof typeof StudyType],
+  }));
 };
 
 export default function Study() {
@@ -60,26 +18,13 @@ export default function Study() {
     { mean: '反応する', word: 'react' },
     { mean: '次に', word: 'next' },
   ] as const;
-  const [position, setPosition] = useState<0 | 1>(0);
-
   return (
-    <Grid className='px-10'>
-      <J2E word={words[position]} />
-      <button
-        className='col-span-6 w-full bg-base-200 py-10'
-        onClick={() => setPosition(Math.max(0, position - 1) as 0 | 1)}
-      >
-        {'<'}
-      </button>
-
-      <button
-        className='col-span-6 w-full bg-base-200 py-10'
-        onClick={() =>
-          setPosition(Math.min(words.length - 1, position + 1) as 0 | 1)
-        }
-      >
-        {'>'}
-      </button>
-    </Grid>
+    <div className='grid grid-cols-12'>
+      {words.map((word) => {
+        return(
+          <p key={word.word}>{word.word},{word.mean}</p>
+        )
+        })}
+    </div>
   );
 }
