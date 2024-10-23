@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Link from 'next/link';
 import SelectItem from './selectItem';
 
-const studyTypeText = {
+export const studyTypeText = {
   e2j: '英語を日本語に',
   j2e: '日本語を英語に',
   dict: '単語帳',

@@ -2,6 +2,7 @@ import { grid } from '../grid';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
+import { studyTypeText } from './[studyType]/page';
 
 function CustomCard(props: {
   className: string;
@@ -39,17 +40,17 @@ export default function Study() {
       {[
         {
           link: '/study/e2j',
-          title: '英語を日本語に',
+          title: studyTypeText["e2j"],
           desc: '英単語の意味を回答する問題です',
         },
         {
           link: '/study/j2e',
-          title: '日本語を英語に',
+          title: studyTypeText["j2e"],
           desc: '日本語を英語にする問題です',
         },
         {
           link: '/study/dict',
-          title: '単語帳',
+          title: studyTypeText["dict"],
           desc: '訳や例文などが載っている単語帳です',
         },
       ].map((props) => (
