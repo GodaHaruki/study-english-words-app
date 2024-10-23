@@ -58,23 +58,25 @@ export default function Study() {
   // const { wordSetIdParam, studyTypeParam } = useParams()
   const words = [
     { mean: '反応する', word: 'react' },
-    { mean: '次に', word: 'next' }
+    { mean: '次に', word: 'next' },
   ] as const;
-  const [position, setPosition] = useState<0|1>(0);
+  const [position, setPosition] = useState<0 | 1>(0);
 
   return (
     <Grid className='px-10'>
       <J2E word={words[position]} />
       <button
         className='col-span-6 w-full bg-base-200 py-10'
-        onClick={() => setPosition(Math.max(0, position - 1) as 0|1)}
+        onClick={() => setPosition(Math.max(0, position - 1) as 0 | 1)}
       >
         {'<'}
       </button>
 
       <button
         className='col-span-6 w-full bg-base-200 py-10'
-        onClick={() => setPosition(Math.min(words.length - 1, position + 1) as 0|1)}
+        onClick={() =>
+          setPosition(Math.min(words.length - 1, position + 1) as 0 | 1)
+        }
       >
         {'>'}
       </button>
