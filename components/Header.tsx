@@ -22,6 +22,8 @@ export default function Header() {
     );
   }
 
+  const [focus, setFocus] = useState<boolean>(false);
+
   return (
     <Grid className='col-span-12 bg-primary-content'>
       <div className='col-span-12 sm:col-span-4 sm:col-start-1'>
@@ -52,8 +54,12 @@ export default function Header() {
             <option value='mean'>mean</option>
           </select>
 
-          <div className='my-auto'>
-            <label className='input input-bordered ml-auto flex items-center gap-2'>
+          <div className='relative my-auto'>
+            <label
+              className='input input-bordered ml-auto flex items-center gap-2'
+              onFocus={() => setFocus(true)}
+              onBlur={() => setFocus(false)}
+            >
               <input
                 type='text'
                 className='w-full grow'
@@ -74,18 +80,20 @@ export default function Header() {
                 />
               </svg>
             </label>
-            <div className='table absolute w-full bg-primary-content'>
-              {suggestions.slice(0, 5).map((w) => (
-                <button
-                  key={w}
-                  className='ml-4 block py-2'
-                  type='button'
-                  onClick={() => setQuery(w)}
-                >
-                  {w}
-                </button>
-              ))}
-            </div>
+            {query !== '' && focus ? (
+              <div className='absolute left-0 top-full w-full rounded-lg bg-white shadow-md'>
+                {suggestions.slice(0, 5).map((w, index) => (
+                  <button
+                    key={w + index}
+                    className='block w-full border-b px-4 py-2 text-left opacity-70 first:rounded-t-lg last:rounded-b-lg last:border-none hover:bg-gray-100'
+                    type='button'
+                    onClick={() => setQuery(w)}
+                  >
+                    {w}
+                  </button>
+                ))}
+              </div>
+            ) : null}
           </div>
         </form>
       </div>
